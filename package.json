@@ -1,20 +1,56 @@
 {
   "name": "flext",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "name": "Corey White",
+    "email": "coreyjwhite@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/coreyjwhite/flext",
+  "repository": "github:coreyjwhite/phetch",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "dev-api": "next dev & cd api && FLASK_ENV=development && flask run -h '0.0.0.0'",
+    "doc": "rm -rf public/docs/ && jsdoc -c jsdoc.json -d public/docs/ src/",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
-    "next": "12.1.0",
+    "next": "11.1.2",
+    "prop-types": "^15.7.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-loader-spinner": "^4.0.0",
+    "react-modal": "^3.14.3",
+    "react-query": "^3.32.3",
+    "react-sparklines": "^1.7.0",
+    "react-table": "^7.7.0",
+    "react-tooltip": "^4.2.21",
+    "styled-components": "^5.3.1",
+    "styled-normalize": "^8.0.7",
+    "swagger-ui-react": "^4.1.0",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
-    "eslint": "8.9.0",
-    "eslint-config-next": "12.1.0"
-  }
+    "better-docs": "^2.3.2",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard-react": "^11.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsdoc": "^36.1.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "prettier": "^2.4.1",
+    "prettier-stylelint": "^0.4.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-idiomatic-order": "^8.1.0",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^4.1.0",
+    "stylelint-processor-styled-components": "^1.10.0"
+  },
+  "packageManager": "yarn@3.0.2"
 }

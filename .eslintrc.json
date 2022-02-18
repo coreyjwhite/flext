@@ -1,3 +1,98 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "eslint:recommended",
+    "next",
+    "next/core-web-vitals",
+    "plugin:import/recommended",
+    "plugin:jsdoc/recommended",
+    "plugin:prettier/recommended",
+    "plugin:prettier/react",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "import/no-unresolved": 0,
+    "import/no-unused-modules": 1,
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "prop-types",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "next/**",
+            "group": "builtin"
+          },
+          {
+            "pattern": "config",
+            "group": "internal"
+          },
+          {
+            "pattern": "libs/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "styles/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "components/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"]
+      }
+    ],
+    "jsdoc/check-tag-names": [
+      1,
+      {
+        "definedTags": ["category", "component"]
+      }
+    ],
+    "jsdoc/match-description": 0,
+    "jsdoc/no-defaults": 0,
+    "jsdoc/no-missing-syntax": 0,
+    "jsdoc/no-restricted-syntax": 0,
+    "jsdoc/no-types": 0,
+    "jsdoc/no-undefined-types": [
+      1,
+      {
+        "definedTypes": ["Component", "Props"]
+      }
+    ],
+    "jsdoc/require-description-complete-sentence": 0,
+    "jsdoc/require-file-overview": 1,
+    "jsdoc/require-jsdoc": 0,
+    "jsdoc/require-param-description": 0,
+    "jsdoc/require-param-type": 0,
+    "jsdoc/require-property-description": 0,
+    "jsdoc/require-returns": 0,
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "jsdoc": {
+      "tagNamePreference": {
+        "file": "module"
+      }
+    }
+  },
+  "globals": {
+    "React": "writable"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": ["import", "jsdoc", "prettier", "react"]
 }

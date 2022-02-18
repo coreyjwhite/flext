@@ -1,34 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Flext
+### Python + React.js
+____________________________________
+#### ***The Back-end:***
+- <a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank">Flask</a> framework with <a href="https://flask-restful.readthedocs.io/en/latest/" target="_blank">Flask-RESTful</a> routing
+- <a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a> database abstraction using <a href="https://pandas.pydata.org/" target="_blank">pandas</a> for ETL
+- Declarative resource definition patterns:
+  - Generate <a href="https://swagger.io/specification/" target="_blank">OpenAPI</a> specs
+  - Validate responses with <a href="https://docs.pytest.org/en/7.0.x/" target="_blank">pytest</a>
+- <a href="https://coverage.readthedocs.io/en/6.3.1/" target="_blank">coverage</a> scripts
+- <a href="https://black.readthedocs.io/en/stable/" target="_blank">Black</a> formatting
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### ***The Front-end:***
+- <a href="https://nextjs.org/" target="_blank">Next.js</a> static site generation using <a href="https://reactjs.org/" target="_blank">React</a> components
+- <a href="https://styled-components.com/" target="_blank">styled-components</a> for CSS-in-JS
+- Design system template with color, space, and elevation variables
+- <a href="https://jsdoc.app/" target="_blank">JSDoc</a> generation and serving
