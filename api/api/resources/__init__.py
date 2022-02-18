@@ -1,7 +1,7 @@
 """Single function to gather and expose REST resources and endpoints from submodules."""
 
 from .base import BaseResource
-from . import *
+from . import info, openapi, ping, root, weather
 from ..utils import get_all_subclasses
 
 

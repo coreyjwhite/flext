@@ -5,5 +5,216 @@ info:
     url: http://192.168.1.77:5000
   title: haqs-api
   version: 0.1.0
-paths: {}
+paths:
+  /:
+    get:
+      tags:
+      - info
+      summary: Get a directory of API paths
+      description: ''
+      operationId: getDirectory
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  path:
+                    type: string
+              example:
+                /: Get a directory of API paths
+                /info: Get server configuration and version information
+                /openapi: Get the OpenAPI specification
+                /ping: Ping the client
+        '404':
+          description: Item not found
+  /info:
+    get:
+      summary: Get server configuration and version information
+      description: ''
+      tags:
+      - info
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  platform:
+                    type: string
+                  machine_name:
+                    type: string
+                  python_version:
+                    type: string
+                  api_version:
+                    type: string
+                  database:
+                    type: string
+                  db_version:
+                    type: string
+              example:
+                platform: Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29
+                machine_name: dev-machine
+                python_version: 3.8.10
+                api_version: 0.3.0
+                database: phetch
+                db_version: 10.4.22-MariaDB-1:10.4.22+maria~focal-log
+  /openapi:
+    get:
+      summary: Get the OpenAPI specification
+      description: The server's OpenAPI specification YAML file
+      tags:
+      - info
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  info:
+                    type: object
+                  paths:
+                    type: object
+                  tags:
+                    type: array
+                  openapi:
+                    type: string
+  /ping:
+    get:
+      tags:
+      - info
+      summary: Ping the client
+      description: A successful GET request returns an object with ping results data
+      operationId: ping
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  destination:
+                    type: string
+                  packet_transmit:
+                    type: number
+                  packet_receive:
+                    type: number
+                  packet_loss_count:
+                    type: number
+                  packet_loss_rate:
+                    type: number
+                  rtt_min:
+                    type: number
+                  rtt_avg:
+                    type: number
+                  rtt_max:
+                    type: number
+                  rtt_mdev:
+                    type: number
+                  packet_duplicate_count:
+                    type: number
+                  packet_duplicate_rate:
+                    type: number
+              example:
+                destination: 192.168.1.77
+                packet_transmit: 1
+                packet_receive: 1
+                packet_loss_count: 0
+                packet_loss_rate: 0.0
+                rtt_min: 0.016
+                rtt_avg: 0.016
+                rtt_max: 0.016
+                rtt_mdev: 0.0
+                packet_duplicate_count: 0
+                packet_duplicate_rate: 0.0
+  /weather:
+    get:
+      tags:
+      - transactions
+      summary: Administration records
+      description: A list of administration records
+      operationId: getAdmins
+      produces:
+      - application/json
+      parameters:
+      - name: encounter-id
+        in: query
+        description: An encounter id
+        required: false
+        schema:
+          type: string
+      - name: item-id
+        in: query
+        description: An item mnemonic
+        required: false
+        schema:
+          type: string
+      - name: location
+        in: query
+        description: A location identifier
+        required: false
+        schema:
+          type: string
+      - name: prescriber
+        in: query
+        description: A prescriber user ID
+        required: false
+        schema:
+          type: string
+      - name: rx-id
+        in: query
+        description: An RX number
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      format: date-time
+                    location:
+                      type: string
+                    acct_number:
+                      type: string
+                    rx_number:
+                      type: string
+                    mnemonic:
+                      type: string
+                    admin_dose:
+                      type: number
+                      format: float
+                    admin_dose_unit:
+                      type: string
+                    prescriber:
+                      type: string
+              example:
+              - date: '2020-21-11T06:27:00'
+                location: 3W
+                acct_number: E043045004
+                rx_number: '03311143'
+                mnemonic: DIAZ5
+                admin_dose: 2.5
+                admin_dose_unit: MG
+                prescriber: ARANAJ
+        '400':
+          description: No parameters received
 openapi: 3.0.2

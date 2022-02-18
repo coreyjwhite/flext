@@ -29,5 +29,6 @@ def create_app(config=Config):
 
         add_resources(api)
         add_specs()
+        db.create_all()
 
     return app
