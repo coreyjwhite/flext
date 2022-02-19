@@ -6,5 +6,5 @@ class Config:
 
     # SQLAlchemy options
     SQLALCHEMY_TRACK_MODIFICATIONS = False  # Disable deprecated feature
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/test.db"

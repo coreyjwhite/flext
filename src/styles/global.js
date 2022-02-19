@@ -48,25 +48,6 @@ const global = createGlobalStyle`
 
   *.swagger-ui {
     width: 75%;
-    h2, h3, h4, p, td {
-      font-family: 'Open Sans' !important;
-    }
-    div.info {
-      margin: 15px 0 15px;
-    }
-    .renderedMarkdown {
-      p {
-        margin: 0px auto 5px;
-      }
-    }
-    .response-control-media-type__accept-message {
-      display: none;
-    }
-    .renderedMarkdown {
-      p {
-        margin-bottom: 0px;
-      }
-    }
   }
 
 }`;

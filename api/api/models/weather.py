@@ -1,11 +1,11 @@
-"""Meditech report tables mapper classes."""
+"""Weather database table mapper classes."""
 
 from .base import BaseModel
 from sqlalchemy import Column, DateTime, Float, Integer, String
 
 
 class Forecast(BaseModel):
-    """Charge type descriptions and workload categories."""
+    """Hourly forecast data."""
 
     __tablename__ = "forecast"
 

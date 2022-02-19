@@ -10,26 +10,24 @@ from .. import db
 
 
 class InfoSchema(Schema):
-    platform = fields.String()
-    machine_name = fields.String()
-    python_version = fields.String()
-    api_version = fields.String()
-    database = fields.String()
-    db_version = fields.String()
+    """Schema of response to /info."""
+
+    platform = fields.String(
+        example="Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29"
+    )
+    machine_name = fields.String(example="dev-machine")
+    python_version = fields.String(example="3.8.10")
+    api_version = fields.String(example="0.3.0")
+    database = fields.String(example="my_db")
+    db_version = fields.String(
+        example="10.4.22-MariaDB-1:10.4.22+maria~focal-log"
+    )
 
 
 class InfoResource(BaseResource):
 
     path = "/info"
     schema = InfoSchema
-    example = {
-        "platform": "Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29",
-        "machine_name": "dev-machine",
-        "python_version": "3.8.10",
-        "api_version": "0.3.0",
-        "database": "phetch",
-        "db_version": "10.4.22-MariaDB-1:10.4.22+maria~focal-log",
-    }
 
     operations = {
         "get": {
@@ -38,12 +36,7 @@ class InfoResource(BaseResource):
             "responses": {
                 200: {
                     "description": "OK",
-                    "content": {
-                        "application/json": {
-                            "schema": schema,
-                            "example": example,
-                        }
-                    },
+                    "content": {"application/json": {"schema": schema}},
                 }
             },
         }
@@ -65,5 +58,4 @@ class InfoResource(BaseResource):
                 "database": db_name,
                 "db_version": db_version,
             },
-            200,
         )

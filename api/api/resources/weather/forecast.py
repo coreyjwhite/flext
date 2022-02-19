@@ -13,27 +13,16 @@ from ...models.weather import Forecast
 from ...utils import if_then, query_json, df_json, json_df
 
 
-class ForecastSchema(SQLAlchemyAutoSchema):
-    class Meta:
-        model = Forecast
-        include_relationships = True
-        load_instance = True
-
-
 class ForecastRequestSchema(Schema):
-    office = fields.Str(example="description for a field")
-    grid_x = fields.Int()
-    grid_y = fields.Int()
+    office = fields.Str(example="FFC")
+    grid_x = fields.Int(example=42)
+    grid_y = fields.Int(example=81)
 
 
 class ForecastResource(BaseResource):
 
     path = "/weather/forecast"
-    summary = "Weather forecast data"
-
-    schema = ForecastSchema
-    req_schema = ForecastRequestSchema
-
+    schema = Forecast.__marshmallow__()
     example = [
         {
             "date": "2020-21-11T06:27:00",
@@ -50,7 +39,7 @@ class ForecastResource(BaseResource):
     operations = {
         "post": {
             "tags": ["transactions"],
-            "summary": summary,
+            "summary": "Weather forecast data",
             "description": "A list of administration records",
             "parameters": [{"in": "query", "schema": ForecastRequestSchema}],
             "responses": {
@@ -70,7 +59,7 @@ class ForecastResource(BaseResource):
 
     @use_args(ForecastRequestSchema(), location="query")
     def post(self, args):
-
+        print(ForecastResource.schema.__dict__)
         # Return error if no query parameters
         if not request.args:
             return self.status_response("post", 400)
@@ -84,5 +73,5 @@ class ForecastResource(BaseResource):
             db.session.add(forecast)
 
         users = db.session.execute(select(Forecast))
-        data = ForecastSchema().dump(users, many=True)
+        data = ForecastResource.schema.dump(users, many=True)
         return jsonify({"users": data})

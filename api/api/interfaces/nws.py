@@ -3,6 +3,8 @@ import requests
 
 
 def get_hourly_forecast(office, grid_x, grid_y):
+    """Get data from the NWS forecast API."""
+
     forecast_resp = requests.get(
         f"https://api.weather.gov/gridpoints/{office}/{grid_x},{grid_y}/forecast/hourly",
         headers={"User-Agent": "flext-nws-interface"},

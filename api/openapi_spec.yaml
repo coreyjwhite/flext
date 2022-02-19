@@ -17,13 +17,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Root'
-              example:
-                /: Get a directory of API paths
-                /info: Get server configuration and version information
-                /openapi: Get the OpenAPI specification
-                /ping: Ping the client
-        '404':
-          description: Item not found
   /info:
     get:
       summary: Get server configuration and version information
@@ -36,13 +29,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Info'
-              example:
-                platform: Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29
-                machine_name: dev-machine
-                python_version: 3.8.10
-                api_version: 0.3.0
-                database: phetch
-                db_version: 10.4.22-MariaDB-1:10.4.22+maria~focal-log
   /openapi:
     get:
       summary: Get the OpenAPI specification
@@ -75,21 +61,21 @@ paths:
       description: A list of administration records
       parameters:
       - in: query
-        name: office
+        name: grid_x
         required: false
         schema:
-          type: string
-          example: description for a field
+          type: integer
       - in: query
         name: grid_y
         required: false
         schema:
           type: integer
       - in: query
-        name: grid_x
+        name: office
         required: false
         schema:
-          type: integer
+          type: string
+          example: description for a field
       responses:
         '200':
           description: OK
@@ -114,102 +100,114 @@ components:
     Root:
       type: object
       properties:
-        path:
+        directory:
           type: object
+          example:
+          - /
+          - /info
+          - /openapi
+          - /ping
+          - /weather/forecast
     Info:
       type: object
       properties:
-        python_version:
-          type: string
         api_version:
           type: string
-        database:
-          type: string
-        machine_name:
-          type: string
+          example: 0.3.0
         db_version:
           type: string
+          example: 10.4.22-MariaDB-1:10.4.22+maria~focal-log
         platform:
           type: string
+          example: Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29
+        database:
+          type: string
+          example: my_db
+        python_version:
+          type: string
+          example: 3.8.10
+        machine_name:
+          type: string
+          example: dev-machine
     OpenApi:
       type: object
       properties:
-        info:
-          type: object
-        openapi:
-          type: string
-        paths:
-          type: object
         tags:
           type: array
           items:
             type: string
+        paths:
+          type: object
+        info:
+          type: object
+        openapi:
+          type: string
     Ping:
       type: object
       properties:
-        packet_transmit:
-          type: integer
-          example: 1
         rtt_min:
           type: number
           example: 0.016
-        rtt_avg:
-          type: number
-          example: 0.016
-        rtt_mdev:
+        packet_loss_rate:
           type: number
           example: 0.0
-        packet_duplicate_count:
-          type: integer
-          example: 0
         packet_duplicate_rate:
           type: number
           example: 0.0
         packet_receive:
           type: integer
           example: 1
+        rtt_avg:
+          type: number
+          example: 0.016
         rtt_max:
           type: number
           example: 0.016
+        packet_duplicate_count:
+          type: integer
+          example: 0
         packet_loss_count:
           type: integer
           example: 0
         destination:
           type: string
           example: 192.168.1.77
-        packet_loss_rate:
+        rtt_mdev:
           type: number
           example: 0.0
+        packet_transmit:
+          type: integer
+          example: 1
     Forecast:
       type: object
       properties:
-        long:
-          type: number
-          nullable: true
         forecast:
           type: string
-          nullable: true
-        end:
-          type: string
-          format: date-time
-          nullable: true
-        start:
-          type: string
-          format: date-time
-          nullable: true
-        temperature:
-          type: integer
           nullable: true
         office:
           type: string
           nullable: true
           maxLength: 3
+        temperature:
+          type: integer
+          nullable: true
+        end:
+          type: string
+          format: date-time
+          nullable: true
+        long:
+          type: number
+          nullable: true
+        start:
+          type: string
+          format: date-time
+          nullable: true
+        id:
+          type: integer
+        lat:
+          type: number
+          nullable: true
         timestamp:
           type: string
           format: date-time
           nullable: true
-        lat:
-          type: number
-          nullable: true
-        id:
-          type: integer
