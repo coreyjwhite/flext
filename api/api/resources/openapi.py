@@ -1,31 +1,27 @@
 """REST endpoint for the OpenAPI specification YAML file."""
 
+from marshmallow import Schema, fields
 import yaml
 
 from .base import BaseResource
 from .. import db
 
 
+class OpenApiSchema(Schema):
+    info = fields.Dict()
+    paths = fields.Dict()
+    tags = fields.List(fields.Str())
+    openapi = fields.Str()
+
+
 class OpenApiResource(BaseResource):
 
     path = "/openapi"
+    schema = OpenApiSchema
 
-    summary = "Get the OpenAPI specification"
-
-    schema = {
-        "type": "object",
-        "properties": {
-            "info": {"type": "object"},
-            "paths": {"type": "object"},
-            "tags": {"type": "array"},
-            "openapi": {"type": "string"},
-        },
-    }
-
-    responses = {
+    operations = {
         "get": {
-            "summary": summary,
-            "description": "The server's OpenAPI specification YAML file",
+            "summary": "Get the OpenAPI specification",
             "tags": ["info"],
             "responses": {
                 200: {

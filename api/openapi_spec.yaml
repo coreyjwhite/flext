@@ -1,9 +1,8 @@
 info:
-  description: haqs API
-  license: MIT
-  servers:
-    url: http://192.168.1.77:5000
-  title: haqs-api
+  description: Flext API
+  license:
+    name: MIT
+  title: Flext
   version: 0.1.0
 paths:
   /:
@@ -11,20 +10,13 @@ paths:
       tags:
       - info
       summary: Get a directory of API paths
-      description: ''
-      operationId: getDirectory
-      produces:
-      - application/json
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  path:
-                    type: string
+                $ref: '#/components/schemas/Root'
               example:
                 /: Get a directory of API paths
                 /info: Get server configuration and version information
@@ -35,7 +27,6 @@ paths:
   /info:
     get:
       summary: Get server configuration and version information
-      description: ''
       tags:
       - info
       responses:
@@ -44,20 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  platform:
-                    type: string
-                  machine_name:
-                    type: string
-                  python_version:
-                    type: string
-                  api_version:
-                    type: string
-                  database:
-                    type: string
-                  db_version:
-                    type: string
+                $ref: '#/components/schemas/Info'
               example:
                 platform: Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29
                 machine_name: dev-machine
@@ -68,7 +46,6 @@ paths:
   /openapi:
     get:
       summary: Get the OpenAPI specification
-      description: The server's OpenAPI specification YAML file
       tags:
       - info
       responses:
@@ -77,135 +54,49 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  info:
-                    type: object
-                  paths:
-                    type: object
-                  tags:
-                    type: array
-                  openapi:
-                    type: string
+                $ref: '#/components/schemas/OpenApi'
   /ping:
     get:
       tags:
       - info
       summary: Ping the client
-      description: A successful GET request returns an object with ping results data
-      operationId: ping
-      produces:
-      - application/json
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  destination:
-                    type: string
-                  packet_transmit:
-                    type: number
-                  packet_receive:
-                    type: number
-                  packet_loss_count:
-                    type: number
-                  packet_loss_rate:
-                    type: number
-                  rtt_min:
-                    type: number
-                  rtt_avg:
-                    type: number
-                  rtt_max:
-                    type: number
-                  rtt_mdev:
-                    type: number
-                  packet_duplicate_count:
-                    type: number
-                  packet_duplicate_rate:
-                    type: number
-              example:
-                destination: 192.168.1.77
-                packet_transmit: 1
-                packet_receive: 1
-                packet_loss_count: 0
-                packet_loss_rate: 0.0
-                rtt_min: 0.016
-                rtt_avg: 0.016
-                rtt_max: 0.016
-                rtt_mdev: 0.0
-                packet_duplicate_count: 0
-                packet_duplicate_rate: 0.0
-  /weather:
-    get:
+                $ref: '#/components/schemas/Ping'
+  /weather/forecast:
+    post:
       tags:
       - transactions
-      summary: Administration records
+      summary: Weather forecast data
       description: A list of administration records
-      operationId: getAdmins
-      produces:
-      - application/json
       parameters:
-      - name: encounter-id
-        in: query
-        description: An encounter id
+      - in: query
+        name: office
         required: false
         schema:
           type: string
-      - name: item-id
-        in: query
-        description: An item mnemonic
+          example: description for a field
+      - in: query
+        name: grid_y
         required: false
         schema:
-          type: string
-      - name: location
-        in: query
-        description: A location identifier
+          type: integer
+      - in: query
+        name: grid_x
         required: false
         schema:
-          type: string
-      - name: prescriber
-        in: query
-        description: A prescriber user ID
-        required: false
-        schema:
-          type: string
-      - name: rx-id
-        in: query
-        description: An RX number
-        required: false
-        schema:
-          type: string
+          type: integer
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    date:
-                      type: string
-                      format: date-time
-                    location:
-                      type: string
-                    acct_number:
-                      type: string
-                    rx_number:
-                      type: string
-                    mnemonic:
-                      type: string
-                    admin_dose:
-                      type: number
-                      format: float
-                    admin_dose_unit:
-                      type: string
-                    prescriber:
-                      type: string
+                $ref: '#/components/schemas/Forecast'
               example:
               - date: '2020-21-11T06:27:00'
                 location: 3W
@@ -218,3 +109,107 @@ paths:
         '400':
           description: No parameters received
 openapi: 3.0.2
+components:
+  schemas:
+    Root:
+      type: object
+      properties:
+        path:
+          type: object
+    Info:
+      type: object
+      properties:
+        python_version:
+          type: string
+        api_version:
+          type: string
+        database:
+          type: string
+        machine_name:
+          type: string
+        db_version:
+          type: string
+        platform:
+          type: string
+    OpenApi:
+      type: object
+      properties:
+        info:
+          type: object
+        openapi:
+          type: string
+        paths:
+          type: object
+        tags:
+          type: array
+          items:
+            type: string
+    Ping:
+      type: object
+      properties:
+        packet_transmit:
+          type: integer
+          example: 1
+        rtt_min:
+          type: number
+          example: 0.016
+        rtt_avg:
+          type: number
+          example: 0.016
+        rtt_mdev:
+          type: number
+          example: 0.0
+        packet_duplicate_count:
+          type: integer
+          example: 0
+        packet_duplicate_rate:
+          type: number
+          example: 0.0
+        packet_receive:
+          type: integer
+          example: 1
+        rtt_max:
+          type: number
+          example: 0.016
+        packet_loss_count:
+          type: integer
+          example: 0
+        destination:
+          type: string
+          example: 192.168.1.77
+        packet_loss_rate:
+          type: number
+          example: 0.0
+    Forecast:
+      type: object
+      properties:
+        long:
+          type: number
+          nullable: true
+        forecast:
+          type: string
+          nullable: true
+        end:
+          type: string
+          format: date-time
+          nullable: true
+        start:
+          type: string
+          format: date-time
+          nullable: true
+        temperature:
+          type: integer
+          nullable: true
+        office:
+          type: string
+          nullable: true
+          maxLength: 3
+        timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        lat:
+          type: number
+          nullable: true
+        id:
+          type: integer

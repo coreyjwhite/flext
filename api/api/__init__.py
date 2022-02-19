@@ -24,7 +24,7 @@ def create_app(config=Config):
 
     # Add REST endpoints and OpenAPI specs
     with app.app_context():
-        from .specs import add_specs
+        from .utils.specs import add_specs
         from .resources import add_resources
 
         add_resources(api)

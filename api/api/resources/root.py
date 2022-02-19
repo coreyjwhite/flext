@@ -2,18 +2,20 @@
 
 from collections import OrderedDict
 
+from marshmallow import Schema, fields
+
 from .base import BaseResource
 from ..utils import get_all_subclasses
+
+
+class RootSchema(Schema):
+    path = fields.Dict()
 
 
 class RootResource(BaseResource):
 
     path = "/"
-
-    summary = "Get a directory of API paths"
-
-    schema = {"type": "object", "properties": {"path": {"type": "string"}}}
-
+    schema = RootSchema
     example = {
         "/": "Get a directory of API paths",
         "/info": "Get server configuration and version information",
@@ -21,13 +23,10 @@ class RootResource(BaseResource):
         "/ping": "Ping the client",
     }
 
-    responses = {
+    operations = {
         "get": {
             "tags": ["info"],
-            "summary": summary,
-            "description": "",
-            "operationId": "getDirectory",
-            "produces": ["application/json"],
+            "summary": "Get a directory of API paths",
             "responses": {
                 200: {
                     "description": "OK",

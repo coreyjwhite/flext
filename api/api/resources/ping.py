@@ -5,65 +5,40 @@ import platform
 import subprocess
 
 from flask import request
+from marshmallow import Schema, fields
 from pingparsing import PingParsing
 
 from .base import BaseResource
 from .. import db
 
 
+class PingSchema(Schema):
+    destination = fields.Str(example="192.168.1.77")
+    packet_transmit = fields.Int(example=1)
+    packet_receive = fields.Int(example=1)
+    packet_loss_count = fields.Int(example=0)
+    packet_loss_rate = fields.Float(example=0.0)
+    rtt_min = fields.Float(example=0.016)
+    rtt_avg = fields.Float(example=0.016)
+    rtt_max = fields.Float(example=0.016)
+    rtt_mdev = fields.Float(example=0.0)
+    packet_duplicate_count = fields.Int(example=0)
+    packet_duplicate_rate = fields.Float(example=0.0)
+
+
 class PingResource(BaseResource):
 
     path = "/ping"
+    schema = PingSchema
 
-    summary = "Ping the client"
-
-    schema = {
-        "type": "object",
-        "properties": {
-            "destination": {"type": "string"},
-            "packet_transmit": {"type": "number"},
-            "packet_receive": {"type": "number"},
-            "packet_loss_count": {"type": "number"},
-            "packet_loss_rate": {"type": "number"},
-            "rtt_min": {"type": "number"},
-            "rtt_avg": {"type": "number"},
-            "rtt_max": {"type": "number"},
-            "rtt_mdev": {"type": "number"},
-            "packet_duplicate_count": {"type": "number"},
-            "packet_duplicate_rate": {"type": "number"},
-        },
-    }
-
-    example = {
-        "destination": "192.168.1.77",
-        "packet_transmit": 1,
-        "packet_receive": 1,
-        "packet_loss_count": 0,
-        "packet_loss_rate": 0.0,
-        "rtt_min": 0.016,
-        "rtt_avg": 0.016,
-        "rtt_max": 0.016,
-        "rtt_mdev": 0.0,
-        "packet_duplicate_count": 0,
-        "packet_duplicate_rate": 0.0,
-    }
-
-    responses = {
+    operations = {
         "get": {
             "tags": ["info"],
-            "summary": summary,
-            "description": "A successful GET request returns an object with ping results data",
-            "operationId": "ping",
-            "produces": ["application/json"],
+            "summary": "Ping the client",
             "responses": {
                 200: {
                     "description": "OK",
-                    "content": {
-                        "application/json": {
-                            "schema": schema,
-                            "example": example,
-                        }
-                    },
+                    "content": {"application/json": {"schema": schema}},
                 }
             },
         }
@@ -81,9 +56,9 @@ class PingResource(BaseResource):
             json.loads(
                 json.dumps(
                     ping_parser.parse(
-                        subprocess.run(command, stdout=subprocess.PIPE).stdout.decode(
-                            "utf-8"
-                        )
+                        subprocess.run(
+                            command, stdout=subprocess.PIPE
+                        ).stdout.decode("utf-8")
                     ).as_dict(),
                     indent=4,
                 )

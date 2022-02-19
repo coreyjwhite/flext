@@ -5,8 +5,6 @@
  * @param {string} path
  */
 
-import config from "config";
-
 export default function useApiUrl(path) {
-  return `${config.apiHost}${path}`;
+  return `http://192.168.1.77:5000${path}`;
 }

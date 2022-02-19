@@ -6,7 +6,7 @@ ____________________________________
 - <a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy</a> database abstraction using <a href="https://pandas.pydata.org/" target="_blank">pandas</a> for ETL
 - Declarative resource definition patterns:
   - Generate <a href="https://swagger.io/specification/" target="_blank">OpenAPI</a> specs
-  - Validate responses with <a href="https://docs.pytest.org/en/7.0.x/" target="_blank">pytest</a>
+  - Validate operations with <a href="https://docs.pytest.org/en/7.0.x/" target="_blank">pytest</a>
 - <a href="https://coverage.readthedocs.io/en/6.3.1/" target="_blank">coverage</a> scripts
 - <a href="https://black.readthedocs.io/en/stable/" target="_blank">Black</a> formatting
 

@@ -2,30 +2,26 @@
 
 import platform
 
+from marshmallow import Schema, fields
 import toml
 
 from .base import BaseResource
 from .. import db
 
 
+class InfoSchema(Schema):
+    platform = fields.String()
+    machine_name = fields.String()
+    python_version = fields.String()
+    api_version = fields.String()
+    database = fields.String()
+    db_version = fields.String()
+
+
 class InfoResource(BaseResource):
 
     path = "/info"
-
-    summary = "Get server configuration and version information"
-
-    schema = {
-        "type": "object",
-        "properties": {
-            "platform": {"type": "string"},
-            "machine_name": {"type": "string"},
-            "python_version": {"type": "string"},
-            "api_version": {"type": "string"},
-            "database": {"type": "string"},
-            "db_version": {"type": "string"},
-        },
-    }
-
+    schema = InfoSchema
     example = {
         "platform": "Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29",
         "machine_name": "dev-machine",
@@ -35,10 +31,9 @@ class InfoResource(BaseResource):
         "db_version": "10.4.22-MariaDB-1:10.4.22+maria~focal-log",
     }
 
-    responses = {
+    operations = {
         "get": {
-            "summary": summary,
-            "description": "",
+            "summary": "Get server configuration and version information",
             "tags": ["info"],
             "responses": {
                 200: {
