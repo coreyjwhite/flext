@@ -5,7 +5,7 @@ from flask_cors import CORS
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from ..config.config import Config
+from config import Config
 
 
 # Make SQLAlchemy object available globally for ORM models

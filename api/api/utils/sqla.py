@@ -13,15 +13,3 @@ def create_table(table_names):
     table_objects = [BaseModel.metadata.tables[table] for table in table_names]
     engine = sqla.create_engine(Config.SQLALCHEMY_DATABASE_URI)
     BaseModel.metadata.create_all(engine, tables=table_objects)
-
-
-def get_all_subclasses(cls):
-    """Recursively return all subclasses."""
-
-    all_subclasses = []
-
-    for subclass in cls.__subclasses__():
-        all_subclasses.append(subclass)
-        all_subclasses.extend(get_all_subclasses(subclass))
-
-    return all_subclasses

@@ -65,17 +65,19 @@ paths:
         required: false
         schema:
           type: integer
-      - in: query
-        name: grid_y
-        required: false
-        schema:
-          type: integer
+          example: 42
       - in: query
         name: office
         required: false
         schema:
           type: string
-          example: description for a field
+          example: FFC
+      - in: query
+        name: grid_y
+        required: false
+        schema:
+          type: integer
+          example: 81
       responses:
         '200':
           description: OK
@@ -111,24 +113,24 @@ components:
     Info:
       type: object
       properties:
-        api_version:
-          type: string
-          example: 0.3.0
-        db_version:
-          type: string
-          example: 10.4.22-MariaDB-1:10.4.22+maria~focal-log
         platform:
           type: string
           example: Linux-4.4.0-19041-Microsoft-x86_64-with-glibc2.29
-        database:
+        db_version:
           type: string
-          example: my_db
+          example: 10.4.22-MariaDB-1:10.4.22+maria~focal-log
         python_version:
           type: string
           example: 3.8.10
         machine_name:
           type: string
           example: dev-machine
+        api_version:
+          type: string
+          example: 0.3.0
+        database:
+          type: string
+          example: my_db
     OpenApi:
       type: object
       properties:
@@ -136,25 +138,22 @@ components:
           type: array
           items:
             type: string
-        paths:
-          type: object
-        info:
-          type: object
         openapi:
           type: string
+        info:
+          type: object
+        paths:
+          type: object
     Ping:
       type: object
       properties:
-        rtt_min:
-          type: number
-          example: 0.016
-        packet_loss_rate:
-          type: number
-          example: 0.0
         packet_duplicate_rate:
           type: number
           example: 0.0
-        packet_receive:
+        packet_duplicate_count:
+          type: integer
+          example: 0
+        packet_transmit:
           type: integer
           example: 1
         rtt_avg:
@@ -163,51 +162,54 @@ components:
         rtt_max:
           type: number
           example: 0.016
-        packet_duplicate_count:
+        packet_receive:
           type: integer
-          example: 0
+          example: 1
+        packet_loss_rate:
+          type: number
+          example: 0.0
+        rtt_min:
+          type: number
+          example: 0.016
         packet_loss_count:
           type: integer
           example: 0
-        destination:
-          type: string
-          example: 192.168.1.77
         rtt_mdev:
           type: number
           example: 0.0
-        packet_transmit:
-          type: integer
-          example: 1
+        destination:
+          type: string
+          example: 192.168.1.77
     Forecast:
       type: object
       properties:
-        forecast:
-          type: string
-          nullable: true
-        office:
-          type: string
-          nullable: true
-          maxLength: 3
-        temperature:
+        id:
           type: integer
-          nullable: true
-        end:
-          type: string
-          format: date-time
-          nullable: true
         long:
           type: number
+          nullable: true
+        temperature:
+          type: integer
           nullable: true
         start:
           type: string
           format: date-time
           nullable: true
-        id:
-          type: integer
-        lat:
-          type: number
-          nullable: true
         timestamp:
           type: string
           format: date-time
+          nullable: true
+        end:
+          type: string
+          format: date-time
+          nullable: true
+        office:
+          type: string
+          nullable: true
+          maxLength: 3
+        lat:
+          type: number
+          nullable: true
+        forecast:
+          type: string
           nullable: true

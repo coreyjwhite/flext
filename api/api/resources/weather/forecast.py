@@ -10,7 +10,6 @@ from ..base import BaseResource
 from ... import db
 from ...interfaces.nws import get_hourly_forecast
 from ...models.weather import Forecast
-from ...utils import if_then, query_json, df_json, json_df
 
 
 class ForecastRequestSchema(Schema):
