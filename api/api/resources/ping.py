@@ -30,7 +30,6 @@ class PingResource(BaseResource):
 
     path = "/ping"
     schema = PingSchema
-
     operations = {
         "get": {
             "tags": ["info"],

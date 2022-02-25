@@ -1,4 +1,4 @@
-"""Inject generated marshmallow schemas into SQLAlchemy model classes.
+"""Injection of generated marshmallow schemas into SQLAlchemy model classes.
 
 Adapted from https://marshmallow-sqlalchemy.readthedocs.io/en/latest/recipes.html#automatically-generating-schemas-for-sqlalchemy-models
 """

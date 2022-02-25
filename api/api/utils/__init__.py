@@ -1,3 +1,5 @@
+"""General utilites."""
+
 from . import marshmallow, specs, sqla
 
 

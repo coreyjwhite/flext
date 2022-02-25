@@ -15,6 +15,6 @@ const StyledHeading = styled.h1.attrs((props) => ({
   color: ${c.primary5};
 `;
 
-export default function Heading() {
+export default function Heading(props) {
   return <StyledHeading>{props.children}</StyledHeading>;
 }

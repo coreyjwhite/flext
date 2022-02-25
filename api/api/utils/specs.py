@@ -17,6 +17,8 @@ tags = []
 
 
 def build_specs():
+    """ Gather spec data from pyproject.toml and resource modules."""
+
     # Initialize APISpec info object with poetry fields
     spec = APISpec(
         title=pyproject["name"],

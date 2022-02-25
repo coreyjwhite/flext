@@ -28,7 +28,6 @@ class InfoResource(BaseResource):
 
     path = "/info"
     schema = InfoSchema
-
     operations = {
         "get": {
             "summary": "Get server configuration and version information",
@@ -43,6 +42,7 @@ class InfoResource(BaseResource):
     }
 
     def get(self):
+        """Return server info."""
 
         # Load poetry configuration data
         api_version = toml.load("pyproject.toml")["tool"]["poetry"]["version"]

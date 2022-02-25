@@ -16,7 +16,6 @@ class RootResource(BaseResource):
 
     path = "/"
     schema = RootSchema
-
     operations = {
         "get": {
             "tags": ["info"],

@@ -18,7 +18,6 @@ class OpenApiResource(BaseResource):
 
     path = "/openapi"
     schema = OpenApiSchema
-
     operations = {
         "get": {
             "summary": "Get the OpenAPI specification",
@@ -33,7 +32,7 @@ class OpenApiResource(BaseResource):
     }
 
     def get(self):
-        """Get OpenAPI spec YAML from root dir."""
+        """Return OpenAPI spec YAML from root dir."""
 
         with open("openapi_spec.yaml", "r") as stream:
             data_loaded = yaml.safe_load(stream)
